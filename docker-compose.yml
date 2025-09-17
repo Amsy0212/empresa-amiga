@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  database:
+    build: ./Database
+    container_name: postgres_con
+    env_file: [.env]
+    ports: []                # 5432 НЕ публикуем наружу
+    volumes: [dbdata:/var/lib/postgresql/data]
+  backend:
+    build: ./Backend
+    container_name: fastapi_service
+    env_file: [.env]
+    depends_on: [database]
+    ports: ["8000:8000"]
+  frontend:
+    build: ./Frontend
+    container_name: streamlit_front
+    env_file: [.env]
+    depends_on: [backend]
+    ports: ["8501:8501"]
+  populate:
+    build: ./Populate
+    container_name: faker_populator
+    env_file: [.env]
+    depends_on: [database]
+    restart: "no"
+volumes:
+  dbdata:

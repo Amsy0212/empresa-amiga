@@ -1,0 +1,14 @@
+services:
+  frontend:
+    build: .
+    container_name: front_end
+    restart: unless-stopped
+    ports:
+      - "8501:8501"   # 2323 = порт на твоём компьютере, 5432 = порт внутри контейнера
+    networks:
+      - red_postgres
+
+networks:
+  red_postgres:
+    external: true
+    name: red_postgres

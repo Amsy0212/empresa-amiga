@@ -1,0 +1,14 @@
+services:
+  fastapi_service_v0:
+    build: .
+    container_name: fastapi_service_v0
+    ports:
+      - "2347:8000"
+    env_file:
+      - .env
+    networks:
+      - red_postgres
+
+networks:
+  red_postgres:
+    external: true

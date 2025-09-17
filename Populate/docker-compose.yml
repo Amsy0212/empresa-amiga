@@ -1,0 +1,13 @@
+services:
+  faker_populator:
+    container_name: faker_populator
+    build: .
+    #restart: unless-stopped
+    env_file:
+      - .env
+    networks:
+      - red_postgres
+
+networks:
+  red_postgres:
+    external: true
